@@ -8,7 +8,7 @@ const Header = () => {
             <Navbar bg='dark' variant='dark' expand='lg' collapseonselect={true.toString()} >
                 <Container>
                     <Navbar.Brand href='/'>
-                        <img src={logo} alt="proshop image" />
+                        <img src={logo} alt="proshop" />
                         ProShop
                     </Navbar.Brand>
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
