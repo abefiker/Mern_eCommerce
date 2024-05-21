@@ -1,38 +1,20 @@
 import exress from 'express'
 const router = exress.Router()
-// import Product from '../models/productModel';
+import Product from '../models/productModel.js';
+import asyncHandler from '../middleware/asyncHandler.js';
 
-import products from '../data/products.js'
-router.get('/', async (req, res) => {
-    // try {
-    //     const products = await Product.find();
-    //     res.json({
-    //         products,
-    //         success: true
-    //     });
-    // } catch (err) {
-    //     res.json({
-    //         success: false,
-    //         message: err.message
-    //     })
-    // }
+router.get('/', asyncHandler(async (req, res) => {
+
+    const products = await Product.find({});
     res.json(products)
-});
-router.get('/:id', async (req, res) => {
-    // try {
-    //     const product = await Product.findById(req.params.id)
-    //     res.json({
-    //         product,
-    //         success: true
-    //     });
-    // } catch (err) {
-    //     res.json({
-    //         success: false,
-    //         message: err.message
-    //     })
-    // }
-    const product = products.find(p => p._id === req.params.id)
-    res.json(product)
-})
+}));
+router.get('/:id', asyncHandler(async (req, res) => {
+
+    const product = await Product.findById(req.params.id)
+    if (product) {
+        res.json(product)
+    }
+    res.status(404).json({message:'Product not found'})
+}))
 
 export default router;
