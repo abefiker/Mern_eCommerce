@@ -1,29 +1,18 @@
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap';
 import Rating from "../components/Rating";
-// import products from '../products';
-// import { useEffect,useState } from "react";
-// import axios from 'axios';
 import Message from "../components/Message";
 import { useGetProductByIdQuery } from "../slices/productApiSlice";
 import Loader from "../components/Loader";
 
 const ProductScreen = () => {
-    // const [product,setProduct] = useState([])
     const { id: productId } = useParams();
-    // useEffect(()=>{
-    //     const fetchData = async () => {
-    //         const {data} = await axios.get(`/api/products/${productId}`)
-    //         setProduct(data)
-    //     }
-    //     fetchData();
-    // },[productId])
     const { data: product, isLoading, error } = useGetProductByIdQuery(productId);
 
     return (
         <>
-            <Link className="btn btn-light my-3" to='/'>Go Back</Link> 
+            <Link className="btn btn-light my-3" to='/'>Go Back</Link>
             {isLoading ? (
                 <Loader />
             ) : error ? (
@@ -63,15 +52,12 @@ const ProductScreen = () => {
                                         <Row>
                                             <Col>Status:</Col>
                                             <Col>
-                                                <strong>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stack'}</strong>
+                                                <strong>{product.countInStock > 0 ? 'In Stock' : 'Out Of Stock'}</strong>
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>
                                     <ListGroup.Item>
-                                        <Button className="btn-block"
-                                            type="button"
-                                            disabled={product.countInStock === 0}
-                                        >
+                                        <Button className="btn-block" type="button" disabled={product.countInStock === 0}>
                                             Add To Cart
                                         </Button>
                                     </ListGroup.Item>
@@ -81,9 +67,8 @@ const ProductScreen = () => {
                     </Row>
                 </>
             )}
-
         </>
-    )
-}
+    );
+};
 
-export default ProductScreen
+export default ProductScreen;
